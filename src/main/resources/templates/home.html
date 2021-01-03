@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+home
+$!{value1}
+
+
+#*
+
+块注释
+this is good
+
+*#
+
+## '!'不存在则为空 行注释
+
+
+
+
+#foreach($str in $list)
+    this is good $str <br>
+#end
+$!{list}
+#foreach($color in $colors)
+This is Color $!{foreach.index}: $color, $!{foreach.count}<br>
+#end
+
+    #foreach($key in $map.keySet())
+        $key -- $map.get($key)<br>
+    #end
+
+
+## 为变量赋值
+#set($test = "haha")
+$!{test}
+
+#parse("head.html")
+
+#macro (fun, $index, $count)
+    this is $index $count
+#end
+
+</body>
+</html>
