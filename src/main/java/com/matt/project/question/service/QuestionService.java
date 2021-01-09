@@ -14,4 +14,8 @@ public interface QuestionService {
 
 
     List<Question> listQuestion();
+
+    Boolean addQuestion(Question question);
+
+    Question getQuestionById(Integer id);
 }

@@ -79,8 +79,12 @@ var oPopupAdd = new PopupAdd({
                     dataType: 'json'
                 }).done(function (oResult) {
                     // 未登陆，跳转到登陆页面
-                    if (oResult.code === 999) {
-                        window.location.href = '/reglogin?next=' + window.encodeURIComponent(window.location.href);
+                    console.log(oResult);
+                    if (oResult.code == '999') {
+                        console.log('log 999---');
+                        window.location.href = '/toLogin?next=' + window.encodeURIComponent(window.location.href);
+
+
                     } else {
                         oConf.ok && oConf.ok.call(that);
                         oAdd.emit('ok');

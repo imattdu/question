@@ -7,7 +7,7 @@ public class Question {
     private int id;
     private String title;
     private String content;
-    private Date createdDate;
+    private Date createDate;
     private int userId;
     private int commentCount;
 
@@ -35,12 +35,12 @@ public class Question {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public int getUserId() {

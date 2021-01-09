@@ -1,5 +1,7 @@
 package com.matt.project.question.dao;
 
+import com.matt.project.question.model.Question;
+
 /**
  * 功能：
  *
@@ -8,5 +10,8 @@ package com.matt.project.question.dao;
  */
 public interface QuestionDAO {
 
+    Integer saveQuestion(Question question);
+
+    Question getQuestionById(Integer id);
 
 }
