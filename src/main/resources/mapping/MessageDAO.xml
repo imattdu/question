@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.matt.project.question.dao.MessageDAO">
+
+    <!--Integer saveMessage(Message message);-->
+    <insert id="saveMessage" parameterType="com.matt.project.question.model.Message"
+        useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `message`(from_id,to_id,content,create_date,has_read,conversation_id)
+        VALUES(#{fromId}, #{toId}, #{content}, #{createDate}, #{hasRead}, #{conversationId})
+    </insert>
+
+    <!--List<Message> listMessage(Integer userId);-->
+    <select id="listConversation" resultType="com.matt.project.question.model.Message">
+        SELECT from_id,to_id,content,create_date,has_read,conversation_id,count(id) as id from
+            (
+                SELECT id,from_id,to_id,content,create_date,has_read,conversation_id
+                FROM message
+                WHERE from_id = #{userId} OR to_id = #{userId}
+                ORDER BY create_date DESC
+            ) AS msg
+        GROUP BY conversation_id
+        ORDER BY create_date
+    </select>
+
+    <!--Integer countUnreadMessage(Integer userId);-->
+    <select id="countUnreadMessage" resultType="int">
+        SELECT COUNT(id)
+        FROM message
+        WHERE to_id = #{userId} AND has_read = 0
+    </select>
+
+    <!--List<> listMessageByConversationId(String conversationId);-->
+    <select id="listMessageByConversationId" resultType="com.matt.project.question.model.Message">
+        SELECT id,from_id,to_id,content,create_date,has_read,conversation_id
+        FROM message
+        WHERE conversation_id = #{conversationId}
+    </select>
+
+
+</mapper>

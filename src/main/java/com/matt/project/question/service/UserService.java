@@ -1,5 +1,7 @@
 package com.matt.project.question.service;
 
+import com.matt.project.question.model.User;
+
 import java.util.Map;
 
 /**
@@ -16,6 +18,10 @@ public interface UserService {
     Map<String,Object> login(String name, String password);
 
     void logout(String ticket);
+
+    User getUserById(Integer id);
+
+    User getUserByName(String name);
 
 
 }

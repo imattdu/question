@@ -1,8 +1,7 @@
 package com.matt.project.question.controller;
 
-import com.matt.project.question.model.HostHolder;
-import com.matt.project.question.model.Question;
-import com.matt.project.question.model.User;
+import com.matt.project.question.model.*;
+import com.matt.project.question.service.CommentService;
 import com.matt.project.question.service.QuestionService;
 import com.matt.project.question.service.UserService;
 import com.matt.project.question.util.WendaUtil;
@@ -11,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author matt
@@ -26,6 +27,8 @@ public class QuestionController {
     private HostHolder hostHolder;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "/question/add", method = RequestMethod.POST)
     @ResponseBody
@@ -62,7 +65,15 @@ public class QuestionController {
         User user = hostHolder.getUser();
         model.addAttribute("question",question);
         model.addAttribute("user",user);
-
+        List<Comment> commentList = commentService.listCommentByEntity(EntityType.ENTITY_QUESTION, id);
+        List<ViewObject> comments = new ArrayList<>();
+        for (Comment comment : commentList) {
+            ViewObject vo = new ViewObject();
+            vo.set("comment", comment);
+            vo.set("user",userService.getUserById(comment.getUserId()));
+            comments.add(vo);
+        }
+        model.addAttribute("comments",comments);
         return "detail";
     }
 

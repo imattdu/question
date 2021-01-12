@@ -20,7 +20,7 @@
 
     <!--User getUserById(Integer id);-->
     <select id="getUserById" resultType="com.matt.project.question.model.User">
-        SELECT id,name,password,salt,head_url
+        SELECT id,`name`,password,salt,head_url
         FROM user
         WHERE id = #{id}
     </select>

@@ -97,6 +97,21 @@ public class UserServiceImpl implements UserService {
         loginTicketDAO.updateLoginTicketByTicket(ticket,1);
     }
 
+    @Override
+    public User getUserById(Integer id) {
+
+        User user = userDAO.getUserById(id);
+
+        return user;
+    }
+
+    @Override
+    public User getUserByName(String name) {
+
+        User user = userDAO.getUserByName(name);
+        return user;
+    }
+
     public String saveLoginTicket(Integer userId) {
 
         LoginTicket loginTicket = new LoginTicket();

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.matt.project.question.dao.CommentDAO">
+
+
+    <!--Integer saveComment(Comment comment);-->
+    <insert id="saveComment" parameterType="com.matt.project.question.model.Comment"
+        useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `comment`(user_id,create_date,entity_id,entity_type,content,`status`)
+        VALUES(#{userId},#{createDate},#{entityId},#{entityType},#{content},#{status})
+    </insert>
+
+    <!--        List<Comment> listCommentByEntity(@Param(value = "entityType") Integer entityType,
+                @Param(value = "entityId") Integer entityId);-->
+    <select id="listCommentByEntity" resultType="com.matt.project.question.model.Comment">
+        SELECT id,user_id,create_date,entity_id,entity_type,content,`status`
+        FROM `comment`
+        WHERE entity_type = #{entityType}
+        AND entity_id = #{entityId}
+    </select>
+
+
+</mapper>
