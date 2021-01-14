@@ -1,5 +1,8 @@
 package com.matt.project.question.controller;
 
+import com.matt.project.question.async.EventModel;
+import com.matt.project.question.async.EventProducer;
+import com.matt.project.question.async.EventType;
 import com.matt.project.question.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventProducer eventProducer;
 
     @RequestMapping(value = "/toLogin",method = RequestMethod.GET)
     public String toLogin(@RequestParam(name = "next", required = false)String next,
@@ -42,14 +47,10 @@ public class LoginController {
 
         if (result.containsKey("msg")) {
             model.addAttribute("msg",result.get("msg"));
-            return "/login";
+            return "login";
         }
-
-        if (!StringUtils.isNotBlank(next)) {
-            return "redirect:" + next;
-        }
-
-        return "redirect:/";
+        model.addAttribute("msg","注册成功,请登录");
+        return "login";
     }
 
 
@@ -75,10 +76,15 @@ public class LoginController {
                 return "redirect:" + next;
             }
 
+            eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                    .setExt("username",name)
+                    .setExt("email", "2757992519@qq.com")
+            );
+
             return "redirect:/";
         } else {
             model.addAttribute("msg", login.get("msg"));
-            return "/login";
+            return "login";
         }
 
 

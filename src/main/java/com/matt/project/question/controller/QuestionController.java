@@ -2,10 +2,12 @@ package com.matt.project.question.controller;
 
 import com.matt.project.question.model.*;
 import com.matt.project.question.service.CommentService;
+import com.matt.project.question.service.LikeService;
 import com.matt.project.question.service.QuestionService;
 import com.matt.project.question.service.UserService;
 import com.matt.project.question.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,8 @@ public class QuestionController {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private LikeService likeService;
 
     @RequestMapping(value = "/question/add", method = RequestMethod.POST)
     @ResponseBody
@@ -69,7 +73,19 @@ public class QuestionController {
         List<ViewObject> comments = new ArrayList<>();
         for (Comment comment : commentList) {
             ViewObject vo = new ViewObject();
+            Long likeCount = likeService.countLike(EntityType.ENTITY_QUESTION, comment.getId());
+            vo.set("likeCount", likeCount);
             vo.set("comment", comment);
+            if (user == null) {
+                vo.set("liked", "0");
+            } else {
+                Integer likeStatus = likeService.getLikeStatus(user.getId(),
+                        EntityType.ENTITY_QUESTION, comment.getId());
+                vo.set("liked", likeStatus);
+            }
+
+
+
             vo.set("user",userService.getUserById(comment.getUserId()));
             comments.add(vo);
         }

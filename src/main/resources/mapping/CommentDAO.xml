@@ -21,5 +21,12 @@
         AND entity_id = #{entityId}
     </select>
 
+    <!--Comment getCommentById(Integer id);-->
+    <select id="getCommentById" resultType="com.matt.project.question.model.Comment">
+        SELECT id,user_id,create_date,entity_id,entity_type,content,`status`
+        FROM `comment`
+        WHERE id = #{id}
+    </select>
+
 
 </mapper>

@@ -13,6 +13,8 @@ import java.util.Map;
 public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
 
+    public static final Integer SYSTEM_USER_ID = 101;
+
     public static String getJSONString(String code, String msg) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);

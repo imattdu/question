@@ -17,6 +17,6 @@ public interface CommentDAO {
     List<Comment> listCommentByEntity(@Param(value = "entityType") Integer entityType,
                                       @Param(value = "entityId") Integer entityId);
 
-
+    Comment getCommentById(Integer id);
 
 }
