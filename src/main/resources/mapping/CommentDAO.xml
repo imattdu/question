@@ -28,5 +28,12 @@
         WHERE id = #{id}
     </select>
 
+    <!--Integer countCommentByUserId(Integer userId);-->
+    <select id="countCommentByUserId" resultType="int">
+        SELECT COUNT(1)
+        FROM `comment`
+        WHERE user_id = #{userId}
+    </select>
+
 
 </mapper>

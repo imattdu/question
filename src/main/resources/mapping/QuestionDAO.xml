@@ -16,4 +16,13 @@
         SELECT id,title,content,create_date,user_id,comment_count FROM question
         WHERE id = #{id};
     </select>
+
+    <!--List<Question> listQuestionByPage(@Param(value = "offset") Integer offset,
+    @Param(value = "count")Integer count);-->
+    <select id="listQuestionByPage" resultType="com.matt.project.question.model.Question">
+        SELECT id,title,content,create_date,user_id,comment_count
+        FROM question
+        ORDER BY create_date desc
+        LIMIT #{offset}, #{count}
+    </select>
 </mapper>

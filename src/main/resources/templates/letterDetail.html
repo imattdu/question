@@ -1,66 +1,40 @@
 #parse("header.html")
-<link rel="stylesheet" href="/styles/letter.css">
-
+<link rel="stylesheet" media="all" href="/styles/letter.css">
 <div id="main">
-<!--
     <div class="zg-wrap zu-main clearfix ">
         <ul class="letter-chatlist">
+
+
+
             #foreach($message in $messages)
-            <li id="msg-item-4009580">
-                <a class="list-head">
-                    <img alt="头像" src="$!message.headUrl">
-                </a>
-                <div class="tooltip fade right in">
-                    <div class="tooltip-arrow"></div>
-                    <div class="tooltip-inner letter-chat clearfix">
-                        <div class="letter-info">
-                            <p class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!message.message.createDate)</p>
-                            &lt;!&ndash; <a href="javascript:void(0);" id="del-link" name="4009580">删除</a> &ndash;&gt;
-                        </div>
-                        <p class="chat-content">
-                            $!message.message.content
-                        </p>
-                    </div>
-                </div>
-            </li>
-            #end
-        </ul>
-
-    </div>
--->
-
-
-    <div class="zg-wrap zu-main clearfix ">
-        <ul class="letter-list">
-            #foreach($message in $messages)
-            <li id="conversation-item-10001_622873">
-
+            <li id="conversation-item-10005_622873">
                 <div class="letter-info">
-                    <span class="l-time">$date.format('yyyy-MM-dd HH:mm:ss', $!message.message.createDate)</span>
+                    <span class="l-time">$date.format('yyyy-MM-dd HH:mm:ss', $message.message.createDate)</span>
+                    <div class="l-operate-bar">
 
+
+                    </div>
                 </div>
                 <div class="chat-headbox">
 
                     <a class="list-head">
-                        <img alt="头像" src="$!message.headUrl">
+                        <img alt="头像" src="$message.user.headUrl">
                     </a>
                 </div>
                 <div class="letter-detail">
 
                     <p class="letter-brief">
-
-                    <div>
-                        $!message.message.content
-                    </div>
+                        $message.message.content
                     </p>
                 </div>
             </li>
             #end
+
+
         </ul>
 
     </div>
-
 </div>
-
-
+#parse("js.html")
+<script type="text/javascript" src="/scripts/main/site/detail.js"></script>
 #parse("footer.html")

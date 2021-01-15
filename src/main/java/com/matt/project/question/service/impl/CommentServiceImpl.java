@@ -33,4 +33,11 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> commentList = commentDAO.listCommentByEntity(commentType, commentId);
         return commentList;
     }
+
+    @Override
+    public Integer countCommentByUserId(Integer userId) {
+
+        Integer commentCount = commentDAO.countCommentByUserId(userId);
+        return commentCount;
+    }
 }

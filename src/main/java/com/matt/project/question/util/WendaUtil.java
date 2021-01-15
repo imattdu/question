@@ -22,6 +22,15 @@ public class WendaUtil {
         return jsonObject.toJSONString();
     }
 
+    public static String getJSONString(int code, Map<String, Object> map) {
+        JSONObject json = new JSONObject();
+        json.put("code", code);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            json.put(entry.getKey(), entry.getValue());
+        }
+        return json.toJSONString();
+    }
+
     public static String getJSONString(String code) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);

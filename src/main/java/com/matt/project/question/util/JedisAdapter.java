@@ -7,10 +7,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author matt
@@ -119,6 +123,113 @@ public class JedisAdapter implements InitializingBean {
             }
         }
         return false;
+    }
+
+    public Jedis getJedis() {
+        return jedisPool.getResource();
+    }
+
+    public Transaction multi(Jedis jedis) {
+        Transaction transaction = jedis.multi();
+        return transaction;
+    }
+
+    public List<Object> exec(Transaction transaction, Jedis jedis) {
+        List<Object> resList = new ArrayList<>();
+        try {
+            resList = transaction.exec();
+            return resList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resList;
+        } finally {
+            if (transaction != null) {
+                try {
+                    transaction.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public Long zadd(Jedis jedis, String key, Double score, String member) {
+        Long zadd = jedis.zadd(key, score, member);
+        return zadd;
+    }
+
+    public Long zrem(Jedis jedis, String key, String member) {
+        Long zrem = jedis.zrem(key, member);
+        return zrem;
+    }
+
+    public Set<String> zrange(String key, Integer start, Integer end) {
+        Set<String> res = new HashSet<>();
+        Jedis jedis = jedisPool.getResource();
+        try {
+
+            res = jedis.zrange(key, start, end);
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return res;
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public Set<String> zrevrange(String key, Integer start, Integer end) {
+        Set<String> res = new HashSet<>();
+        Jedis jedis = jedisPool.getResource();
+        try {
+
+            res = jedis.zrevrange(key, start, end);
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return res;
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public Long zcard(String key) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+
+            Long count = jedis.zcard(key);
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0l;
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public Double zscore(String key, String member) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+
+            Double zscore = jedis.zscore(key, member);
+            return zscore;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
     }
 
 

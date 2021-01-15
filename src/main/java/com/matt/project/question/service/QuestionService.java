@@ -18,4 +18,6 @@ public interface QuestionService {
     Boolean addQuestion(Question question);
 
     Question getQuestionById(Integer id);
+
+    List<Question> listQuestionByCreatedate();
 }

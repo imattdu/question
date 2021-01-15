@@ -5,6 +5,7 @@ import com.matt.project.question.service.CommentService;
 import com.matt.project.question.service.LikeService;
 import com.matt.project.question.service.QuestionService;
 import com.matt.project.question.service.UserService;
+import com.matt.project.question.service.impl.FollowServiceImpl;
 import com.matt.project.question.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -33,6 +34,8 @@ public class QuestionController {
     private CommentService commentService;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private FollowServiceImpl followService;
 
     @RequestMapping(value = "/question/add", method = RequestMethod.POST)
     @ResponseBody
@@ -86,9 +89,34 @@ public class QuestionController {
 
 
 
+
+
             vo.set("user",userService.getUserById(comment.getUserId()));
             comments.add(vo);
         }
+
+        List<ViewObject> followUsers = new ArrayList<ViewObject>();
+        // 获取关注的用户信息
+        List<Integer> users = followService.listFollower(EntityType.ENTITY_QUESTION, id, 20);
+        for (Integer userId : users) {
+            ViewObject vo = new ViewObject();
+            User u = userService.getUserById(userId);
+            if (u == null) {
+                continue;
+            }
+            vo.set("name", u.getName());
+            vo.set("headUrl", u.getHeadUrl());
+            vo.set("id", u.getId());
+            followUsers.add(vo);
+        }
+        model.addAttribute("followUsers", followUsers);
+        if (hostHolder.getUser() != null) {
+            model.addAttribute("followed", followService.isFollower(hostHolder.getUser().getId(),
+                    EntityType.ENTITY_QUESTION, id));
+        } else {
+            model.addAttribute("followed", false);
+        }
+
         model.addAttribute("comments",comments);
         return "detail";
     }

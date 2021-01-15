@@ -84,9 +84,8 @@ var oPopupAdd = new PopupAdd({
                     data: oData,
                     dataType: 'json'
                 }).done(function (oResult) {
-                    console.log(oResult);
                     // 未登陆，跳转到登陆页面
-                    if (oResult.code === 999) {
+                    if (oResult.code == 999) {
                         window.location.href = '/reglogin?next=' + window.encodeURIComponent(window.location.href);
                     } else if (oResult.code != 0) {
                         that.error(oResult.msg || '出现错误，请重试');
@@ -120,7 +119,7 @@ var oPopupAdd = new PopupAdd({
 
     function fVal(oData) {
         var that = this;
-        if (arguments.length === 0) {
+        if (arguments.length == 0) {
             return {
                 toName: $.trim(that.nameIpt.val()),
                 content: $.trim(that.contentIpt.val())

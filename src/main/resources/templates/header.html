@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-ZA-Response-Id" content="46acde5c53db46f2806ccad726de9826">
-    <title>首页 - 牛客</title>
+    <title>-论坛-</title>
     <meta name="apple-itunes-app" content="app-id=432274380">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="mobile-agent" content="format=html5;url=/">
@@ -34,7 +34,7 @@
             #else
 
             <a href="https://nowcoder.com/people/hu-yuan-24-48" class="zu-top-nav-userinfo " id=":0" role="button" aria-haspopup="true" aria-activedescendant="">
-                <span class="name">牛客</span>
+                <span class="name">$!{user.name}</span>
                 <img class="Avatar" src="$!{user.headUrl}" srcset="$!{user.headUrl} 2x" alt="牛客">
                 <span id="zh-top-nav-new-pm" class="zg-noti-number zu-top-nav-pm-count" style="visibility:hidden" data-count="0">
                     </span>
@@ -43,7 +43,7 @@
 
             <ul class="top-nav-dropdown" id="top-nav-profile-dropdown" aria-labelledby=":0">
                 <li>
-                    <a href="https://nowcoder.com/people/hu-yuan-24-48" tabindex="-1" id=":1">
+                    <a href="/user/${user.id}" tabindex="-1" id=":1">
                         <i class="zg-icon zg-icon-dd-home"></i>我的主页
                     </a>
                 </li>
@@ -77,7 +77,7 @@
                     <a class="zu-top-nav-link" href="/" id="zh-top-link-home" data-za-c="view_home" data-za-a="visit_home" data-za-l="top_navigation_home">首页</a>
                 </li>
                 <li class="zu-top-nav-li " id="zh-top-nav-explore">
-                    <a class="zu-top-nav-link" href="https://nowcoder.com/explore">发现</a>
+                    <a class="zu-top-nav-link" href="/">发现</a>
                 </li>
                 <li class="top-nav-noti zu-top-nav-li ">
                     <a class="zu-top-nav-link" href="javascript:;" id="zh-top-nav-count-wrap" role="button"><span class="mobi-arrow"></span>消息<span id="zh-top-nav-count" class="zu-top-nav-count zg-noti-number" style="display: none;">0</span></a>

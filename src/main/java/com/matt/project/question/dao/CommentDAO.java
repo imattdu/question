@@ -19,4 +19,6 @@ public interface CommentDAO {
 
     Comment getCommentById(Integer id);
 
+    Integer countCommentByUserId(Integer userId);
+
 }

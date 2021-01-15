@@ -51,4 +51,10 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = questionDAO.getQuestionById(id);
         return question;
     }
+
+    @Override
+    public List<Question> listQuestionByCreatedate() {
+        List<Question> questionList = questionDAO.listQuestionByPage(0, 10);
+        return questionList;
+    }
 }

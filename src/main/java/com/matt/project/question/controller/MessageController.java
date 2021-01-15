@@ -74,7 +74,7 @@ public class MessageController {
         List<ViewObject> conversations = new ArrayList<>();
         for (Message message : conversationList) {
             ViewObject vo = new ViewObject();
-            vo.set("conversation",message);
+            vo.set("message",message);
             int targetId = message.getFromId() == selfId ? message.getToId() :
                     message.getFromId();
             vo.set("user",userService.getUserById(targetId));
@@ -106,6 +106,7 @@ public class MessageController {
             }
             vo.set("headUrl", user.getHeadUrl());
             vo.set("userId", user.getId());
+            vo.set("user", user);
             messages.add(vo);
         }
 

@@ -13,4 +13,6 @@ public interface CommentService {
     Integer saveComment(Comment comment);
 
     List<Comment> listCommentByEntity(Integer commentType,Integer commentId);
+
+    Integer countCommentByUserId(Integer userId);
 }
