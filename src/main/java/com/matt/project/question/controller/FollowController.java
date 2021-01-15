@@ -1,12 +1,10 @@
 package com.matt.project.question.controller;
 
-import com.matt.project.question.async.EventModel;
 import com.matt.project.question.model.*;
 import com.matt.project.question.service.CommentService;
 import com.matt.project.question.service.UserService;
 import com.matt.project.question.service.impl.FollowServiceImpl;
 import com.matt.project.question.util.WendaUtil;
-import org.springframework.beans.factory.NamedBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,7 +119,7 @@ public class FollowController {
         } else {
             model.addAttribute("followees", getUsersInfo(0, followeeIds));
         }
-        model.addAttribute("followeeCount", followService.countFollowee(uid, EntityType.ENTITY_USER));
+        model.addAttribute("followeeCount", followService.countFollowee(EntityType.ENTITY_USER, uid));
         model.addAttribute("curUser", userService.getUserById(uid));
         return "followees";
     }

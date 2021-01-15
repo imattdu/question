@@ -1,5 +1,8 @@
 package com.matt.project.question.controller;
 
+import com.matt.project.question.async.EventModel;
+import com.matt.project.question.async.EventProducer;
+import com.matt.project.question.async.EventType;
 import com.matt.project.question.dao.CommentDAO;
 import com.matt.project.question.model.*;
 import org.apache.catalina.Host;
@@ -23,6 +26,8 @@ public class CommentController {
     private HostHolder hostHolder;
     @Autowired
     private CommentDAO commentDAO;
+    @Autowired
+    private EventProducer eventProducer;
 
     @RequestMapping(value = "/comment/save", method = RequestMethod.POST)
     public String saveComment(@RequestParam("questionId") int questionId,
@@ -42,6 +47,13 @@ public class CommentController {
             comment.setEntityId(questionId);
             comment.setStatus(0);
             commentDAO.saveComment(comment);
+
+            eventProducer.fireEvent(new EventModel(EventType.COMMENT)
+                    .setActorId(user.getId())
+                    .setEntityType(EntityType.ENTITY_QUESTION)
+                    .setEntityId(questionId)
+            );
+
         } catch (Exception e) {
             e.printStackTrace();
         }

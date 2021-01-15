@@ -9,12 +9,17 @@ public enum EventType {
     LIKE(0),
     COMMENT(1),
     LOGIN(2),
-    MAIL(3);
+    MAIL(3),
+    FOLLOW(4);
 
     private int value;
 
     private void setValue(int value){
         this.value = value;
+    }
+
+    public int getValue(){
+        return this.value;
     }
 
     private EventType(int value) {

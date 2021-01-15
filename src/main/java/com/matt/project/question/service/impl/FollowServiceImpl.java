@@ -24,6 +24,7 @@ public class FollowServiceImpl implements FollowService {
     private JedisAdapter jedisAdapter;
 
     // 登录用户
+    @Override
     public Boolean follow(Integer userId, Integer entityType, Integer entityId) {
 
         String followerKey = RedisKeyUtil.getFollowerKey(entityType, entityId);

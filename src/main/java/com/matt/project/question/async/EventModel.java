@@ -13,7 +13,7 @@ public class EventModel implements Serializable {
 
     private EventType eventType;
     private int actorId;
-    private int envityType;
+    private int entityType;
     private int entityId;
 
     // 通知的某个人
@@ -39,12 +39,12 @@ public class EventModel implements Serializable {
         return this;
     }
 
-    public int getEnvityType() {
-        return envityType;
+    public int getEntityType() {
+        return entityType;
     }
 
-    public EventModel setEnvityType(int envityType) {
-        this.envityType = envityType;
+    public EventModel setEntityType(int entityType) {
+        this.entityType = entityType;
         return this;
     }
 

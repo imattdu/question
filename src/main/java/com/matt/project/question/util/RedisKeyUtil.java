@@ -20,6 +20,8 @@ public class RedisKeyUtil {
 
     private static String BIZ_FOLLOWEE = "FOLLOWEE";
 
+    private static String BIZ_TIMELINE = "TIMELINE";
+
     public static String getLikeKey(Integer entityType, Integer entityId) {
         return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT
                 + String.valueOf(entityId);
@@ -49,6 +51,10 @@ public class RedisKeyUtil {
     */
     public static String getFolloweeKey(Integer entityType, Integer userId) {
         return BIZ_FOLLOWEE + SPLIT + entityType + SPLIT + userId;
+    }
+
+    public static String getTimeLine(Integer userId) {
+        return BIZ_TIMELINE + SPLIT + userId;
     }
 
 }

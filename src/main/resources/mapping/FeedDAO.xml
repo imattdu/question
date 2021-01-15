@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.matt.project.question.dao.FeedDAO">
+
+
+    <!--Integer saveFeed(Feed feed);-->
+    <insert id="saveFeed" parameterType="com.matt.project.question.model.Feed"
+        useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO feed(`type`,`user_id`,`create_date`,`data`)
+        VALUES(#{type},#{userId},#{createDate},#{data})
+    </insert>
+
+    <!--Feed getFeedById(Integer id);-->
+    <select id="getFeedById" resultType="com.matt.project.question.model.Feed">
+        SELECT `id`,`type`,`user_id`,`create_date`,`data`
+        FROM feed
+        WHERE `id` = #{id}
+    </select>
+
+    <sql id="table">feed</sql>
+    <sql id="selectFields">id, create_date,user_id, data, type
+    </sql>
+    <select id="listFeedByUser" resultType="com.matt.project.question.model.Feed">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+
+        WHERE id &lt; #{maxId}
+
+        <if test="userIds.size() != 0">
+            AND user_id in
+            <foreach item="item" index="index" collection="userIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY id DESC
+        LIMIT #{count}
+    </select>
+
+
+
+
+</mapper>
