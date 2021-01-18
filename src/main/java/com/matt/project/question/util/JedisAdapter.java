@@ -29,7 +29,7 @@ public class JedisAdapter implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        jedisPool = new JedisPool("redis://192.168.96.128:6379/9");
+        jedisPool = new JedisPool("redis://123.56.135.43:6379/9");
         logger.info("创建 jedis 连接池");
     }
 
