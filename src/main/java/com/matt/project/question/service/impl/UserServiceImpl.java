@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 功能：
@@ -50,6 +52,16 @@ public class UserServiceImpl implements UserService {
             map.put("msg", "该用户已经存在");
             return map;
         }
+
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(name);
+        boolean isMatched = matcher.matches();
+        if (!isMatched) {
+            map.put("msg", "邮箱格式不对");
+            return map;
+        }
+
 
         user = new User();
         user.setName(name);

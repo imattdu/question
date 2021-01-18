@@ -5,32 +5,35 @@
         <ul class="letter-list">
             #foreach($conversation in $conversations)
             <li id="conversation-item-10005_622873">
-                <a class="letter-link" href="/msg/detail?conversationId=$conversation.message.conversationId"></a>
-                <div class="letter-info">
-                    <span class="l-time">$date.format('yyyy-MM-dd HH:mm:ss', $conversation.message.createDate)</span>
-                    <div class="l-operate-bar">
-                        <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
-                        删除
-                        </a>-->
-                        <a href="/msg/detail?conversationId=$conversation.message.conversationId">
-                            共$conversation.message.id条会话
-                        </a>
+                <a class="letter-link" href="/msg/detail?conversationId=$conversation.message.conversationId">
+                    <div class="letter-info">
+                        <span class="l-time">$date.format('yyyy-MM-dd HH:mm:ss', $conversation.message.createDate)</span>
+                        <div class="l-operate-bar">
+                            <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                            删除
+                            </a>-->
+                            <a href="/msg/detail?conversationId=$conversation.message.conversationId">
+                                共$conversation.message.id条会话
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="chat-headbox">
+                    <div class="chat-headbox">
                         <span class="msg-num">
                             $conversation.unread
                         </span>
-                    <a class="list-head">
-                        <img alt="头像" src="$conversation.user.headUrl">
-                    </a>
-                </div>
-                <div class="letter-detail">
+                        <a class="list-head">
+                            <img  alt="头像" src="$conversation.user.headUrl">
+                        </a>
+                    </div>
+                    <div class="letter-detail">
+                        <a href="/msg/detail?conversationId=$conversation.message.conversationId">
+                            <p class="letter-brief">
+                                $conversation.message.content
+                            </p>
+                        </a>
 
-                    <p class="letter-brief">
-                        $conversation.message.content
-                    </p>
-                </div>
+                    </div>
+                </a>
             </li>
             #end
         </ul>

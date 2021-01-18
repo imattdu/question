@@ -11,6 +11,14 @@
         VALUES(#{fromId}, #{toId}, #{content}, #{createDate}, #{hasRead}, #{conversationId})
     </insert>
 
+    <!--Integer updateMessageHasReadByConversationId(@Param(value = "hasRead") Integer hasRead,
+                       @Param(value = "conversationId") String conversationId);-->
+    <update id="updateMessageHasReadByConversationId">
+        UPDATE message
+        SET has_read = #{hasRead}
+        WHERE conversation_id = #{conversationId}
+    </update>
+
     <!--List<Message> listMessage(Integer userId);-->
     <select id="listConversation" resultType="com.matt.project.question.model.Message">
         SELECT from_id,to_id,content,create_date,has_read,conversation_id,count(id) as id from
@@ -28,7 +36,7 @@
     <select id="countUnreadMessage" resultType="int">
         SELECT COUNT(id)
         FROM message
-        WHERE to_id = #{userId} AND has_read = 0
+        WHERE conversation_id = #{conversationId} AND has_read = 0
     </select>
 
     <!--List<> listMessageByConversationId(String conversationId);-->

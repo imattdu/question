@@ -19,6 +19,7 @@
         FROM `comment`
         WHERE entity_type = #{entityType}
         AND entity_id = #{entityId}
+        ORDER BY create_date desc
     </select>
 
     <!--Comment getCommentById(Integer id);-->
@@ -33,6 +34,15 @@
         SELECT COUNT(1)
         FROM `comment`
         WHERE user_id = #{userId}
+    </select>
+
+    <!--Integer countCommentByQuestionId(Integer questionId);-->
+    <select id="countCommentByQuestionId" resultType="int">
+
+        SELECT COUNT(1)
+        FROM `comment`
+        WHERE entity_type = 1
+            AND entity_id = #{questionId}
     </select>
 
 

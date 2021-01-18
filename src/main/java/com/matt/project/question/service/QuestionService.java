@@ -15,6 +15,10 @@ public interface QuestionService {
 
     List<Question> listQuestion();
 
+    Integer incrQuestionComment(Integer questionId);
+
+    List<Question> listQuestionByUserId(Integer userId);
+
     Boolean addQuestion(Question question);
 
     Question getQuestionById(Integer id);

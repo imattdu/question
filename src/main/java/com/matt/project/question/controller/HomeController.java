@@ -43,16 +43,17 @@ public class HomeController {
     CommentService commentService;
 
 
-    private List<ViewObject> getQuestions(int userId, int offset, int limit) {
-        //List<Question> questionList = questionService.getLatestQuestions(userId, offset, limit);
+    private List<ViewObject> getQuestions(int userId) {
+        List<Question> questionList = questionService.listQuestionByUserId(userId);
         List<ViewObject> vos = new ArrayList<>();
-       /* for (Question question : questionList) {
+        for (Question question : questionList) {
             ViewObject vo = new ViewObject();
             vo.set("question", question);
-            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
-            vo.set("user", userService.getUser(question.getUserId()));
+            vo.set("followCount", followService.countFollower(EntityType.ENTITY_QUESTION, question.getId()));
+            vo.set("user", userService.getUserById(question.getUserId()));
+            vo.set("commentCount", commentService.countCommentByQuestionId(question.getId()));
             vos.add(vo);
-        }*/
+        }
         return vos;
     }
 
@@ -68,8 +69,7 @@ public class HomeController {
             vo.set("followCount", questionFolloweeCouont);
             User user = userService.getUserById(question.getUserId());
             vo.set("user", user);
-
-
+            vo.set("commentCount", commentService.countCommentByQuestionId(question.getId()));
 
             vos.add(vo);
         }
@@ -79,7 +79,7 @@ public class HomeController {
 
     @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model, @PathVariable("userId") int userId) {
-        model.addAttribute("vos", getQuestions(userId, 0, 10));
+        //model.addAttribute("vos", getQuestions(userId, 0, 10));
 
         User user = userService.getUserById(userId);
         ViewObject vo = new ViewObject();
@@ -99,6 +99,10 @@ public class HomeController {
             Integer commentCount = commentService.countCommentByUserId(user.getId());
             vo.set("commentCount", commentCount);
         }
+
+        List<ViewObject> vos = getQuestions(userId);
+        model.addAttribute("vos", vos);
+
 
         model.addAttribute("profileUser", vo);
         return "profile";

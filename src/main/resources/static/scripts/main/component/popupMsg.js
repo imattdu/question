@@ -86,7 +86,7 @@ var oPopupAdd = new PopupAdd({
                 }).done(function (oResult) {
                     // 未登陆，跳转到登陆页面
                     if (oResult.code == 999) {
-                        window.location.href = '/reglogin?next=' + window.encodeURIComponent(window.location.href);
+                        window.location.href = '/toLogin?next=' + window.encodeURIComponent(window.location.href);
                     } else if (oResult.code != 0) {
                         that.error(oResult.msg || '出现错误，请重试');
                     } else {
@@ -94,7 +94,7 @@ var oPopupAdd = new PopupAdd({
                         oAdd.emit('ok');
                     }
                 }).fail(function () {
-                    alert('出现错误，请重试');
+                    alert('网络出现错误，请重试');
                 }).always(function () {
                     bSubmit = false;
                 });

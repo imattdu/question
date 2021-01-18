@@ -50,6 +50,11 @@ public class LoginController {
             return "login";
         }
         model.addAttribute("msg","注册成功,请登录");
+
+        eventProducer.fireEvent(new EventModel(EventType.REG)
+                .setExt("username",name)
+                .setExt("email", name )
+        );
         return "login";
     }
 
@@ -76,10 +81,7 @@ public class LoginController {
                 return "redirect:" + next;
             }
 
-            eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-                    .setExt("username",name)
-                    .setExt("email", "2757992519@qq.com")
-            );
+
 
             return "redirect:/";
         } else {

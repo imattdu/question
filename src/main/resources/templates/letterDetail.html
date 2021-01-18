@@ -3,35 +3,31 @@
 <div id="main">
     <div class="zg-wrap zu-main clearfix ">
         <ul class="letter-chatlist">
-
-
-
             #foreach($message in $messages)
-            <li id="conversation-item-10005_622873">
-                <div class="letter-info">
-                    <span class="l-time">$date.format('yyyy-MM-dd HH:mm:ss', $message.message.createDate)</span>
-                    <div class="l-operate-bar">
+            <li id="msg-item-4009580">
 
+                <a class="list-head" href="/user/${message.user.id}">
+                    <img alt="${message.user.name}" src="${message.user.headUrl}">
+                </a>
+                <div class="tooltip fade right in">
 
+                    <div class="tooltip-inner letter-chat clearfix">
+
+                        <p class="chat-content">
+                            $message.message.content
+                        </p>
+                        <div class="letter-info">
+                            <p class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $message.message.createDate)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="chat-headbox">
-
-                    <a class="list-head">
-                        <img alt="头像" src="$message.user.headUrl">
-                    </a>
-                </div>
-                <div class="letter-detail">
-
-                    <p class="letter-brief">
-                        $message.message.content
-                    </p>
                 </div>
             </li>
             #end
 
 
         </ul>
+
+
 
     </div>
 </div>

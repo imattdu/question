@@ -17,7 +17,7 @@ import java.util.Map;
  * @create 2021-01-13 15:43
  */
 @Component
-public class LoginExceptionHandler implements EventHandler {
+public class RegExceptionHandler implements EventHandler {
 
     @Autowired
     private MailSender mailSender;
@@ -26,13 +26,13 @@ public class LoginExceptionHandler implements EventHandler {
     public void doHandler(EventModel eventModel) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("username", eventModel.getExt("username"));
-        mailSender.sendWithHTMLTemplate(eventModel.getExt("email"),
-                "登陆IP异常", "mails/login_exception.html", map);
+        mailSender.sendMail(eventModel.getExt("email"), "注册",
+                "感谢访问该问答网站,"+eventModel.getExt("username") + "注册成功");
     }
 
     @Override
     public List<EventType> listSupportEventType() {
 
-        return Arrays.asList(EventType.LOGIN);
+        return Arrays.asList(EventType.REG);
     }
 }

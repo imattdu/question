@@ -47,9 +47,12 @@ public class MessageController {
             if (user != null) {
                 message.setFromId(user.getId());
             } else {
-                return WendaUtil.getJSONString("1","用户不存在");
+                return WendaUtil.getJSONString("1","用户未登录");
             }
             user = userService.getUserByName(toName);
+            if (user == null) {
+                return WendaUtil.getJSONString("1","用户不存在，请输入正确用户名");
+            }
             message.setToId(user.getId());
             message.setHasRead(0);
 
@@ -79,7 +82,7 @@ public class MessageController {
                     message.getFromId();
             vo.set("user",userService.getUserById(targetId));
             // 读取未读
-            vo.set("unread",messageService.countUnreadMessage(selfId));
+            vo.set("unread",messageService.countUnreadMessage(message.getConversationId()));
 
 
             conversations.add(vo);
@@ -111,6 +114,8 @@ public class MessageController {
         }
 
         model.addAttribute("messages",messages);
+
+        messageService.readMessageByConversationId(conversationId);
 
 
         return "letterDetail";

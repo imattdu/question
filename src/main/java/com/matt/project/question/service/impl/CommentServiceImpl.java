@@ -40,4 +40,12 @@ public class CommentServiceImpl implements CommentService {
         Integer commentCount = commentDAO.countCommentByUserId(userId);
         return commentCount;
     }
+
+    @Override
+    public Integer countCommentByQuestionId(Integer questionId) {
+
+        Integer commentCount = commentDAO.countCommentByQuestionId(questionId);
+
+        return commentCount;
+    }
 }

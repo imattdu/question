@@ -31,6 +31,21 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Integer incrQuestionComment(Integer questionId) {
+
+        Integer incr = questionDAO.incrQuestionComment(questionId);
+
+        return incr;
+    }
+
+    @Override
+    public List<Question> listQuestionByUserId(Integer userId) {
+
+        List<Question> questionList = questionDAO.listQuestionByUserId(userId);
+        return questionList;
+    }
+
+    @Override
     public Boolean addQuestion(Question question) {
         if (question == null) {
             return false;
@@ -54,7 +69,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> listQuestionByCreatedate() {
-        List<Question> questionList = questionDAO.listQuestionByPage(0, 10);
+        List<Question> questionList = questionDAO.listQuestionByPage(0, 7);
         return questionList;
     }
 }

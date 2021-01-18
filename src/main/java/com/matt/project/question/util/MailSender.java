@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -26,23 +28,41 @@ public class MailSender implements InitializingBean {
     private VelocityEngine velocityEngine;
 
     public boolean sendWithHTMLTemplate(String to, String subject,
-                                        String template, Map<String, Object> model) {
+                                         String text) {
         try {
             String nick = MimeUtility.encodeText("");
             InternetAddress from = new InternetAddress("matt17@qq.com");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-            String result = VelocityEngineUtils
-                    .mergeTemplateIntoString(velocityEngine, template, "UTF-8", model);
+            //String result = VelocityEngineUtils
+            //        .mergeTemplateIntoString(velocityEngine, null, "UTF-8", model);
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setText(result, true);
+            mimeMessageHelper.setText(text, true);
             mailSender.send(mimeMessage);
             return true;
         } catch (Exception e) {
             logger.error("发送邮件失败" + e.getMessage());
             return false;
+        }
+    }
+
+    public void sendMail(String to, String subject,
+                         String text) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("matt17@qq.com");
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
+            mailSender.send(message);
+            System.out.println(message.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("发送邮件失败" + e.getMessage());
+        } finally {
+
         }
     }
 

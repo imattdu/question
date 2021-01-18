@@ -15,4 +15,7 @@ public interface CommentService {
     List<Comment> listCommentByEntity(Integer commentType,Integer commentId);
 
     Integer countCommentByUserId(Integer userId);
+
+
+    Integer countCommentByQuestionId(Integer questionId);
 }

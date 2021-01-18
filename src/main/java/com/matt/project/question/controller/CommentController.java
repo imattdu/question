@@ -5,6 +5,7 @@ import com.matt.project.question.async.EventProducer;
 import com.matt.project.question.async.EventType;
 import com.matt.project.question.dao.CommentDAO;
 import com.matt.project.question.model.*;
+import com.matt.project.question.service.QuestionService;
 import org.apache.catalina.Host;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class CommentController {
     private CommentDAO commentDAO;
     @Autowired
     private EventProducer eventProducer;
+    @Autowired
+    private QuestionService questionService;
 
     @RequestMapping(value = "/comment/save", method = RequestMethod.POST)
     public String saveComment(@RequestParam("questionId") int questionId,
@@ -47,6 +50,8 @@ public class CommentController {
             comment.setEntityId(questionId);
             comment.setStatus(0);
             commentDAO.saveComment(comment);
+
+            questionService.incrQuestionComment(questionId);
 
             eventProducer.fireEvent(new EventModel(EventType.COMMENT)
                     .setActorId(user.getId())

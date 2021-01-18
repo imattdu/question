@@ -20,4 +20,8 @@ public interface QuestionDAO {
     List<Question> listQuestionByPage(@Param(value = "offset") Integer offset,
                                       @Param(value = "count")Integer count);
 
+    List<Question> listQuestionByUserId(Integer userId);
+
+    Integer incrQuestionComment(Integer questionId);
+
 }

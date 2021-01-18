@@ -29,6 +29,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Integer readMessageByConversationId(String conversationId) {
+
+        Integer readCount = messageDAO.updateMessageHasReadByConversationId(1, conversationId);
+
+        return readCount;
+    }
+
+    @Override
     public List<Message> listConversation(Integer userId) {
 
         List<Message> messageList = messageDAO.listConversation(userId);
@@ -36,9 +44,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Integer countUnreadMessage(Integer userId) {
+    public Integer countUnreadMessage(String  conversationId) {
 
-        Integer count = messageDAO.countUnreadMessage(userId);
+        Integer count = messageDAO.countUnreadMessage(conversationId);
         return count;
     }
 
