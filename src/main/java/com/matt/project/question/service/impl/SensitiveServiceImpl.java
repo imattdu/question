@@ -146,10 +146,10 @@ public class SensitiveServiceImpl implements InitializingBean, SensitiveService 
         return result.toString();
     }
 
-    public static void main(String[] args) throws Exception {
+   /* public static void main(String[] args) throws Exception {
         SensitiveServiceImpl s = new SensitiveServiceImpl();
         //s.afterPropertiesSet();
         s.addWord("色情");
         System.out.println(s.filter("eee色  情"));
-    }
+    }*/
 }

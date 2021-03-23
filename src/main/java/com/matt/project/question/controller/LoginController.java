@@ -80,9 +80,6 @@ public class LoginController {
             if (StringUtils.isNotBlank(next)) {
                 return "redirect:" + next;
             }
-
-
-
             return "redirect:/";
         } else {
             model.addAttribute("msg", login.get("msg"));

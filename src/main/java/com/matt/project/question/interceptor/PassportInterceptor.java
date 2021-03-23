@@ -42,12 +42,15 @@ public class PassportInterceptor implements HandlerInterceptor {
 
         String ticket = null;
         Cookie[] cookies = httpServletRequest.getCookies();
-        for (Cookie cookie : cookies) {
-            if ("ticket".equals(cookie.getName())) {
-                ticket = cookie.getValue();
-                break;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("ticket".equals(cookie.getName())) {
+                    ticket = cookie.getValue();
+                    break;
+                }
             }
         }
+
 
         if (ticket != null) {
             LoginTicket loginTicket = loginTicketDAO.getLoginTicketByTicket(ticket);
